@@ -1,0 +1,48 @@
+/* Dropdown menu items */
+.VirtualizedSelectOption {
+    color: red !important;
+    font-weight: bold !important;
+}
+
+/* Selected item in dropdown list */
+.VirtualizedSelectOption.is-selected {
+    background-color: #FF5A5F !important;
+    color: white !important;
+    font-weight: bold !important;
+}
+
+/* Displayed selected value */
+.Select-value-label {
+    color: #FF5A5F !important;
+    font-weight: bold !important;
+}
+
+/* Label for the dropdown */
+.country-label {
+    color: #FF5A5F !important;
+    font-weight: bold !important;
+    font-size: 16px !important;
+}
+
+/* === Toggle button === */
+.sidebar-toggle, .sidebar-toggle:hover, .sidebar-toggle:focus {
+    background-color: #FF5A5F !important;
+    color: white !important;
+    font-weight: bold !important;
+    border: none !important;
+}
+
+/* === Sidebar NavLinks === */
+.sidebar-nav .nav-link {
+    background-color: #FF5A5F !important;
+    color: white !important;
+    font-weight: bold !important;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+/* Hover + active link = darker red */
+.sidebar-nav .nav-link:hover, .sidebar-nav .nav-link.active {
+    background-color: #e04852 !important;  /* Slightly darker red */
+    color: white !important;
+}
