@@ -3,11 +3,17 @@ import dash
 from dash import dcc, html, Input, Output
 import dash_bootstrap_components as dbc
 import pandas as pd
+from functools import lru_cache
 import plotly.graph_objects as go
 
 dash.register_page(__name__, path='/', title='Airbnb statistics', name='Countries')
 
-age_gender = pd.read_csv('assets/age_gender_bkts.csv')  
+
+@lru_cache(maxsize=1)
+def load_age_gender_data():
+    return pd.read_csv('assets/age_gender_bkts.csv')
+
+age_gender = load_age_gender_data()
 
 country_name_map = {
     'US': 'United States',

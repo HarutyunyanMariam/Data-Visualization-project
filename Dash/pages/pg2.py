@@ -6,10 +6,16 @@ import plotly.graph_objects as go
 from dash.dependencies import Output, Input
 import numpy as np
 from scipy.stats import gaussian_kde
+from functools import lru_cache
+
 
 dash.register_page(__name__, path='/account-booking-distribution', title='Account & Booking Distribution', name='Account & Booking Distribution')
 
-users = pd.read_csv('assets/train_users_2.csv')
+@lru_cache(maxsize=1)
+def load_age_gender_data():
+    return pd.read_csv('assets/train_users_2.csv') 
+
+users = load_age_gender_data()
 
 users['date_account_created'] = pd.to_datetime(users['date_account_created'], errors='coerce')
 users['date_first_booking'] = pd.to_datetime(users['date_first_booking'], errors='coerce')
@@ -113,7 +119,7 @@ def make_age_figure():
 
 layout = dbc.Container([
     dbc.Row([
-        dbc.Col(html.H3("Distribution of Account, Booking, Signup Method, Device Type, Gender, Age, Destination & App", style={"color": "#FF5A5F", "font-weight": "bold", "text-align": "center"}), width=12)
+        dbc.Col(html.H3("", style={"color": "#FF5A5F", "font-weight": "bold", "text-align": "center"}), width=12)
     ]),
 
     html.Hr(),
@@ -133,7 +139,7 @@ layout = dbc.Container([
                         {'label': 'Age Distribution (≤120)', 'value': 'age'},
                         {'label': 'Destination Country', 'value': 'country'},
                         {'label': 'Signup App', 'value': 'app'},
-                        {'label': 'Top 10 Affiliate Providers', 'value': 'affiliate'}
+                        {'label': 'Affiliate Providers', 'value': 'affiliate'}
                     ],
                     value='account',
                     clearable=False,
@@ -213,6 +219,6 @@ def update_graph(selected, compare):
                               'Signup App Distribution', 'Signup App')
         elif selected == 'affiliate':
             fig = make_figure(counts_affiliate.index.tolist(), counts_affiliate.values, percent_affiliate.values,
-                              'Top 10 Affiliate Provider Distribution', 'Affiliate Provider')
+                              'Affiliate Provider Distribution', 'Affiliate Provider')
 
         return [dbc.Col(dcc.Graph(figure=fig, config={'responsive': True}, style={'height': '80vh'}), width=12)]
