@@ -101,4 +101,4 @@ def toggle_sidebar(n_clicks, sidebar_width):
     return sidebar_width, 10, {}
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False, host="0.0.0.0", port=8050)
