@@ -7,7 +7,6 @@ from dash.dependencies import Output, Input, State
 
 dash.register_page(__name__, path='/top-actions', title='Top Actions', name='Top Actions')
 
-# Load preprocessed CSVs (faster than filtering original dataset)
 action_counts_df = pd.read_csv('assets/action_counts_top_15.csv')
 action_time_df = pd.read_csv('assets/action_time_top_20.csv')
 
@@ -17,7 +16,7 @@ def make_figure_first(top_n):
     fig.update_traces(
         text=df['formatted_count'],
         textposition='outside',
-        marker_color='#FF5A5F'
+        marker_color='steelblue'
     )
     fig.update_layout(
         xaxis_title='<b>Action</b>',
@@ -57,7 +56,7 @@ def make_figure_second(top_n):
         paper_bgcolor='white',
         showlegend=False,
     )
-    fig.update_traces(marker_color='#FF5A5F')
+    fig.update_traces(marker_color='steelblue')
     fig.update_xaxes(tickfont=dict(size=12, family='Arial', color='black'))
     fig.update_yaxes(showticklabels=False, title_font=dict(size=14, family='Arial', color='black'))
     return fig
@@ -65,7 +64,7 @@ def make_figure_second(top_n):
 layout = dbc.Container([
     dbc.Row([
         dbc.Col([
-            html.H3(id='plot-title', style={"color": "#FF5A5F", "font-weight": "bold", "text-align": "center"})
+            html.H3(id='plot-title', style={"color": 'steelblue', "font-weight": "bold", "text-align": "center"})
         ], width=12),
     ]),
 

@@ -4,7 +4,7 @@ import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.graph_objects as go
 from dash.dependencies import Output, Input
-import numpy as np
+import numpy as np 
 from scipy.stats import gaussian_kde
 from functools import lru_cache
 
@@ -23,8 +23,12 @@ users['date_first_booking'] = pd.to_datetime(users['date_first_booking'], errors
 months_account_created = users['date_account_created'].dropna().dt.month_name().str[:3]
 months_first_booking = users['date_first_booking'].dropna().dt.month_name().str[:3]
 
-counts_account = months_account_created.value_counts()
-counts_booking = months_first_booking.value_counts()
+month_order = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+               'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+# Value counts reindexed in correct order
+counts_account = months_account_created.value_counts().reindex(month_order, fill_value=0)
+counts_booking = months_first_booking.value_counts().reindex(month_order, fill_value=0)
 
 percent_account = counts_account / counts_account.sum() * 100
 percent_booking = counts_booking / counts_booking.sum() * 100
@@ -61,7 +65,7 @@ def make_figure(x_labels, counts, percents, title, xaxis_title=''):
         y=counts,
         text=[f"{count:,} ({perc:.1f}%)" for count, perc in zip(counts, percents)],
         textposition='outside',
-        marker_color='#FF5A5F',
+        marker_color='steelblue',
         textfont=dict(size=14)
     ))
 
